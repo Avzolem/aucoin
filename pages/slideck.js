@@ -21,13 +21,13 @@ export default function Slideck() {
               collectible items.
             </span>
             <div className="mt-8 flex justify-center">
-              <div class="w-full">
+              {/* <div class="w-full">
                 <img
                   src="/images/boletines.png"
                   class="w-[40rem] "
                   alt="auctions"
                 />
-              </div>
+              </div> */}
             </div>
 
             <br />
@@ -42,7 +42,7 @@ export default function Slideck() {
             <LiteYouTubeEmbed
               aspectHeight={9}
               aspectWidth={16}
-              id="pPi1e-1nsNI"
+              id=""
               title="Aucoin - How it works"
             />
 
