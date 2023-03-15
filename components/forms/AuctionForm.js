@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 
-const createCollectable = async () => {
+const createCollectable = async (formData) => {
   try {
     const provider = getProvider();
     const program = new Program(idl, programID, provider);
@@ -17,7 +17,7 @@ const createCollectable = async () => {
       ],
       program.programId
     );
-    await program.rpc.create("collectable name", "collectable description", {
+    await program.rpc.create(formData.name, formData.description, {
       accounts: {
         collectable,
         user: provider.wallet.publicKey,
@@ -37,6 +37,7 @@ const AuctionForm = ({ type = "new" }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -44,12 +45,12 @@ const AuctionForm = ({ type = "new" }) => {
   const [loading, setLoading] = useState(false);
 
   const collectable = {
-    name: "collectable name",
-    description: "collectable description",
+    name: "",
+    description: "",
   };
 
   return (
-    <form onSubmit={handleSubmit(createCollectable)}>
+    <form onSubmit={handleSubmit}>
       <div className="inputcontainer">
         <Input
           label="Name"
@@ -97,15 +98,10 @@ const AuctionForm = ({ type = "new" }) => {
       <div className="mt-4">
         <button
           type="submit"
-          className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-buttonbg hover:bg-buttonhover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-buttonhover"
-          disabled={loading}
-        >
-          {loading ? "Loading..." : type === "new" ? "Add" : "Update"}
-        </button>
-      </div>
-      <div className="mt-4">
-        <button
-          type="submit"
+          onClick={() => {
+            setValue("name", collectable.name);
+            setValue("description", collectable.description);
+          }}
           className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-yellow-600 hover:bg-buttonhover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-buttonhover"
           disabled={loading}
         >

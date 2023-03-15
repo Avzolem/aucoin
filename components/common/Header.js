@@ -196,7 +196,7 @@ const Header = () => {
                     connectWallet();
                   }}
                 >
-                  <a>Conectar cartera </a>
+                  <a>Connect wallet</a>
                 </button>
               )}
             </div>
